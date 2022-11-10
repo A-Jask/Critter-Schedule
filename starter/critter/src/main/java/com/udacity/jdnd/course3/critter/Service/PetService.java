@@ -23,7 +23,7 @@ public class PetService {
     private CustomerRepository customerRepository;
 
 
-    public List<Pet> getAll(){
+    public List<Pet> getAllPets(){
         return petRepository.findAll();
     }
 

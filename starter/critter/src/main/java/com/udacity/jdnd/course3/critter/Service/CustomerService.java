@@ -21,12 +21,12 @@ public class CustomerService {
     private PetRepository petRepository;
 
 
-    public List<Customer> getAllOwners(){
+    public List<Customer> getAllCustomers(){
         return customerRepository.findAll();
     }
 
     public Customer getOwnerByPetId(long petId){
-        return petRepository.getOne(petId).getOwner();
+        return petRepository.getOne(petId).getCustomer();
     }
 
     public Customer saveCustomer (Customer customer, List<Long> petId) {

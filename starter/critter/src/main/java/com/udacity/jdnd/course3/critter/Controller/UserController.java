@@ -35,8 +35,8 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-//        throw new UnsupportedOperationException();
-        return mapCustomerToDTO(customerService.save(modelMapper.map(customerDTO, Customer.class)));
+        throw new UnsupportedOperationException();
+//        return mapCustomerToDTO(customerService.save(modelMapper.map(customerDTO, Customer.class)));
     }
 
     @GetMapping("/customer")

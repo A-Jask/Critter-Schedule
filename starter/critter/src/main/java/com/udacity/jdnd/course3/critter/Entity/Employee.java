@@ -1,59 +1,40 @@
 package com.udacity.jdnd.course3.critter.Entity;
 
 import com.udacity.jdnd.course3.critter.Enums.EmployeeSkill;
-import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.util.Set;
 
-
-@NamedQueries({
-        @NamedQuery(
-                name = "employee.getAll",
-                query = "SELECT c  Employee c"),
-
-        @NamedQuery(
-                name = "employee.bySkill",
-                query = "SELECT e FROM Employee e JOIN e.skills s WHERE s IN :skills"),
-
-        @NamedQuery(
-                name = "employee.byDayAvailable",
-                query = "SELECT e FROM Employee e JOIN e.daysAvailable d WHERE :day = d"),
-
-        @NamedQuery(
-                name = "employee.bySkillAndDayAvailable",
-                query = "SELECT e FROM Employee e JOIN e.skills s WHERE :day IN e.daysAvailable AND s IN :skills")})
-
-
+@Table(name = "employee")
 @Entity
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id", nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Nationalized
     private String name;
 
-    @ElementCollection(targetClass = EmployeeSkill.class)
-    @JoinTable(name = "employee_skills", joinColumns = @JoinColumn(name = "employee_id"))
-    @Column(name = "skill", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Set<EmployeeSkill> skills;
+    @ElementCollection
+    private Set<EmployeeSkill> employeeSkills;
 
-    @ElementCollection(targetClass = DayOfWeek.class)
-    @JoinTable(name = "employee_days", joinColumns = @JoinColumn(name = "employee_id"))
-    @Column(name = "days", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Set<DayOfWeek> daysAvailable;
+    @ElementCollection
+    private Set<DayOfWeek> availability;
 
+    public  Employee(){}
 
-    public long getId() {
+    public Employee(Long id, String name, Set<EmployeeSkill> employeeSkills, Set<DayOfWeek> availability) {
+        this.id = id;
+        this.name = name;
+        this.employeeSkills = employeeSkills;
+        this.availability = availability;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,30 +47,18 @@ public class Employee {
     }
 
     public Set<EmployeeSkill> getSkills() {
-        return skills;
+        return employeeSkills;
     }
 
-    public void setSkills(Set<EmployeeSkill> skills) {
-        this.skills = skills;
+    public void setSkills(Set<EmployeeSkill> employeeSkills) {
+        this.employeeSkills = employeeSkills;
     }
 
-    public Set<DayOfWeek> getDaysAvailable() {
-        return daysAvailable;
+    public Set<DayOfWeek> getAvailability() {
+        return availability;
     }
 
-    public void setDaysAvailable(Set<DayOfWeek> daysAvailable) {
-        this.daysAvailable = daysAvailable;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj.getClass() == Employee.class)
-            return this.id == ((Employee) obj).id;
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(id);
+    public void setAvailability(Set<DayOfWeek> availability) {
+        this.availability = availability;
     }
 }

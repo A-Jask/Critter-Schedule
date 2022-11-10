@@ -29,7 +29,8 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        return modelMapper.map(petService.save(modelMapper.map(petDTO, Pet.class), petDTO.getOwnerId()), PetDTO.class);
+        throw new UnsupportedOperationException();
+//        return modelMapper.map(petService.save(modelMapper.map(petDTO, Pet.class), petDTO.getOwnerId()), PetDTO.class);
     }
 
     @GetMapping("/{petId}")

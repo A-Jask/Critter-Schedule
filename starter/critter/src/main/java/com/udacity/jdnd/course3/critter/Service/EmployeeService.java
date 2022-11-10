@@ -18,6 +18,9 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    public List<Employee> getAllEmployees(){
+        return employeeRepository.findAll();
+    }
 
     public Employee getEmployeeById(Long employeeId) {
         return employeeRepository.getOne(employeeId);
@@ -29,7 +32,7 @@ public class EmployeeService {
 
     public void setEmployeeAvailability(Set<DayOfWeek> daysAvailable, long employeeID){
         Employee employee = employeeRepository.getOne(employeeID);
-        employee.setDaysAvailable(daysAvailable);
+        employee.setAvailability(daysAvailable);
         employeeRepository.save(employee);
     }
 

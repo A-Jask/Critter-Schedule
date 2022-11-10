@@ -6,28 +6,41 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(
-                name = "customer.getAll",
-                query = "select c from Customer c"),
-        @NamedQuery(
-                name = "customer.getByPet",
-                query = "select c from Customer c join c.pets p where p.id = :id")
+//@NamedQueries({
+//        @NamedQuery(
+//                name = "customer.getAll",
+//                query = "select c from Customer c"),
+//        @NamedQuery(
+//                name = "customer.getByPet",
+//                query = "select c from Customer c join c.pets p where p.id = :id")
+//})
 
-}
-)
+
 @Entity
 public class Customer {
     @Id
-    @Column(name = "customer_id", nullable = false)
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
     @Nationalized
     private String name;
+
     private String phoneNumber;
     private String notes;
-    @OneToMany(mappedBy = "owner")
-    private List<Pet> pets = new ArrayList<>(); ;
+
+    @OneToMany(targetEntity = Pet.class)
+    List<Pet> petList;
+
+
+    public Customer() {
+    }
+
+    public Customer(Long id, String name, String phoneNumber, String notes) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.notes = notes;
+    }
 
     public long getId() {
         return id;
@@ -62,15 +75,17 @@ public class Customer {
     }
 
     public List<Pet> getPets() {
-        return pets;
+        return petList;
     }
 
     public void setPets(List<Pet> pets) {
-        this.pets = pets;
+        this.petList = pets;
     }
 
     public void addPet(Pet pet){
-        pets.add(pet);
+        petList.add(pet);
     }
+
+
 
 }

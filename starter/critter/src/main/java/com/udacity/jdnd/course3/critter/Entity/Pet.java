@@ -2,45 +2,43 @@ package com.udacity.jdnd.course3.critter.Entity;
 
 import com.udacity.jdnd.course3.critter.Enums.PetType;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@NamedQueries({
-        @NamedQuery(
-                name = "pet.getAll",
-                query = "select p from Pet p"),
-
-        @NamedQuery(
-                name = "pet.getByOwner",
-                query = "select p from Pet p where p.owner.id = :id")})
-
-
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pet_id", nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
 
-    private PetType type;
+    @Nationalized
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private Customer owner;
+    @ManyToOne(targetEntity = Customer.class)
+    private Customer customer;
 
+    private PetType petType;
     private LocalDate birthDate;
     private String notes;
 
+    public Pet(){}
 
-
-    public PetType getType() {
-        return type;
+    public Pet(PetType type, String name, LocalDate birthDate, String notes) {
+        this.petType = type;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.notes = notes;
     }
 
-    public void setType(PetType type) {
-        this.type = type;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -51,20 +49,28 @@ public class Pet {
         this.name = name;
     }
 
-    public Customer getOwner() {
-        return owner;
+    public PetType getType() {
+        return petType;
     }
 
-    public void setOwner(Customer ownerId) {
-        this.owner = ownerId;
+    public void setType(PetType type) {
+        this.petType = type;
     }
 
-    public LocalDate getBirthDate() {
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public LocalDate getDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setDate(LocalDate date) {
+        this.birthDate = date;
     }
 
     public String getNotes() {
@@ -73,22 +79,5 @@ public class Pet {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.setOwner(customer);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(this.id);
     }
 }
