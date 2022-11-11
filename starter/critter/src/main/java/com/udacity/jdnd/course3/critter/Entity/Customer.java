@@ -5,19 +5,11 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import java.util.List;
 
-//@NamedQueries({
-//        @NamedQuery(
-//                name = "customer.getAll",
-//                query = "select c from Customer c"),
-//        @NamedQuery(
-//                name = "customer.getByPet",
-//                query = "select c from Customer c join c.pets p where p.id = :id")
-//})
-
 
 @Entity
 @Table(name = "customer")
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

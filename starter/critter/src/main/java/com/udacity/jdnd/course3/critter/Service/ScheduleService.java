@@ -55,11 +55,6 @@ public class ScheduleService {
     public Schedule saveSchedule(Schedule schedule, List<Long> employeeID, List<Long> petID) {
         schedule.setEmployee(employeeRepository.findAllById(employeeID));
         schedule.setPets(petRepository.findAllById(petID));
-
-//        if(schedule == null){
-//            schedule = new Schedule();
-//        }
-
         return scheduleRepository.save(schedule);
     }
 }

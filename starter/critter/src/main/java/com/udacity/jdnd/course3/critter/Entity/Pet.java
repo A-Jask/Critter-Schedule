@@ -6,9 +6,11 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name = "pet")
 public class Pet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
