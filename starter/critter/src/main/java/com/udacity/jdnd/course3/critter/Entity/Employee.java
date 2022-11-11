@@ -1,12 +1,14 @@
 package com.udacity.jdnd.course3.critter.Entity;
 
 import com.udacity.jdnd.course3.critter.Enums.EmployeeSkill;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.util.Set;
 
-@Table(name = "employee")
+
 @Entity
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -21,7 +23,8 @@ public class Employee {
     @ElementCollection
     private Set<DayOfWeek> availability;
 
-    public  Employee(){}
+    public Employee() {
+    }
 
     public Employee(Long id, String name, Set<EmployeeSkill> employeeSkills, Set<DayOfWeek> availability) {
         this.id = id;

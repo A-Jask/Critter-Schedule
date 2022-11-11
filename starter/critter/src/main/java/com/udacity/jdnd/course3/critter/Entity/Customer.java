@@ -3,7 +3,6 @@ package com.udacity.jdnd.course3.critter.Entity;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 //@NamedQueries({
@@ -17,9 +16,10 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Nationalized
@@ -82,10 +82,9 @@ public class Customer {
         this.petList = pets;
     }
 
-    public void addPet(Pet pet){
+    public void addPet(Pet pet) {
         petList.add(pet);
     }
-
 
 
 }

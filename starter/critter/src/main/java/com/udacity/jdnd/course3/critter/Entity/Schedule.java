@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@Table(name = "schedule")
+
 @Entity
+@Table(name = "schedule")
 public class Schedule {
 
     @Id
@@ -26,7 +27,8 @@ public class Schedule {
     @ElementCollection
     private Set<EmployeeSkill> employeeSkill;
 
-    public Schedule(){}
+    public Schedule() {
+    }
 
     public Schedule(Long id, List<Employee> employee, List<Pet> pets, LocalDate date, Set<EmployeeSkill> employeeSkill) {
         this.id = id;
@@ -36,7 +38,9 @@ public class Schedule {
         this.employeeSkill = employeeSkill;
     }
 
-    public Schedule(LocalDate date, Set<EmployeeSkill> activities) {
+    public Schedule(LocalDate date, Set<EmployeeSkill> employeeSkill) {
+        this.date = date;
+        this.employeeSkill = employeeSkill;
     }
 
     public Long getId() {

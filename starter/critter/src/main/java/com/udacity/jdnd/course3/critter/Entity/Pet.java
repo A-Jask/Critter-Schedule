@@ -1,14 +1,13 @@
 package com.udacity.jdnd.course3.critter.Entity;
 
 import com.udacity.jdnd.course3.critter.Enums.PetType;
-
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table
+@Table(name = "pet")
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +23,8 @@ public class Pet {
     private LocalDate birthDate;
     private String notes;
 
-    public Pet(){}
+    public Pet() {
+    }
 
     public Pet(PetType type, String name, LocalDate birthDate, String notes) {
         this.petType = type;

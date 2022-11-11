@@ -18,41 +18,41 @@ import java.util.List;
 public class ScheduleService {
 
     @Autowired
-    private ScheduleRepository scheduleRepository;
+    ScheduleRepository scheduleRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
-    private PetRepository petRepository;
+    PetRepository petRepository;
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
 
 
-    public List<Schedule> getAllSchedule(){
+    public List<Schedule> getAllSchedule() {
         return scheduleRepository.findAll();
     }
 
-    public List<Schedule> getScheduleByPetId(Long petID){
-        return scheduleRepository.getAllScheduleByPet(petRepository.getOne(petID));
+    public List<Schedule> getScheduleByPetId(Long petID) {
+        return scheduleRepository.getScheduleByPets(petRepository.getOne(petID));
     }
 
-    public List<Schedule> getScheduleByEmployeeId(Long employeeID){
+    public List<Schedule> getScheduleByEmployeeId(Long employeeID) {
         return scheduleRepository.getAllScheduleByEmployee(employeeRepository.getOne(employeeID));
     }
 
-    public List<Schedule> getCustomerSchedule(Long customerID){
+    public List<Schedule> getCustomerSchedule(Long customerID) {
         List<Pet> petList = customerRepository.getOne(customerID).getPets();
         List<Schedule> scheduleList = new LinkedList<>();
         petList.forEach(pet -> {
-                List<Schedule> tempSchedule = scheduleRepository.getAllScheduleByPet(pet);
-                scheduleList.addAll(tempSchedule);
+            List<Schedule> tempSchedule = scheduleRepository.getScheduleByPets(pet);
+            scheduleList.addAll(tempSchedule);
         });
         return scheduleList;
     }
 
-    public Schedule saveSchedule(Schedule schedule, List<Long> employeeID, List<Long> petID){
+    public Schedule saveSchedule(Schedule schedule, List<Long> employeeID, List<Long> petID) {
         schedule.setEmployee(employeeRepository.findAllById(employeeID));
         schedule.setPets(petRepository.findAllById(petID));
 
